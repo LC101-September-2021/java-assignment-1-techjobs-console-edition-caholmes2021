@@ -60,11 +60,18 @@ public class TechJobs {
                 // What is their search term?
                 System.out.println("\nSearch term:");
                 String searchTerm = in.nextLine();
+                searchTerm.toLowerCase();
 
                 if (searchField.equals("all")) {
-                    printJobs(JobData.findByValue(searchTerm));
-                } else {
+                    if (searchTerm.equals("all")){
+                        printJobs(JobData.findAll());
+                    }else{
+                        printJobs(JobData.findByValue(searchTerm));
+                    }
+                } else if (JobData.findAll(searchField).contains(searchTerm.toLowerCase())){
                     printJobs(JobData.findByColumnAndValue(searchField, searchTerm));
+                } else {
+                    System.out.println("\nNo results found.");
                 }
             }
         }
