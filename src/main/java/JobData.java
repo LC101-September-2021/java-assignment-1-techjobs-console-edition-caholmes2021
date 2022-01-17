@@ -93,16 +93,9 @@ public class JobData {
      * @param value The search term to look for
      * @return      List of all jobs with at least one field containing the value
      */
-    public static ArrayList<HashMap<String, String>> findByValue(String value) {
-
-        // load data, if not already loaded
-        loadData();
-
-        // TODO - implement this method
-        return null;
-    }
 
        public static ArrayList<HashMap<String, String>> findByValue(String value) {
+           // load data if not already loaded
         loadData();
         value = value.toLowerCase();
 
