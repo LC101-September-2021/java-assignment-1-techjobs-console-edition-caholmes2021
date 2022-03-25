@@ -70,14 +70,17 @@ public class JobData {
      */
     public static ArrayList<HashMap<String, String>> findByColumnAndValue(String column, String value) {
 
+        // load data, if not already loaded
         loadData();
 
         ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
 
         for (HashMap<String, String> row : allJobs) {
-            for (String variable : row.values()) {
-                if (variable.toLowerCase().contains(value.toLowerCase()) && !jobs.contains(row)) {
-                    jobs.add(row);
+
+            String aValue = row.get(column).toLowerCase();
+
+            if (aValue.contains(value.toLowerCase())) {
+                jobs.add(row);
             }
         }
 
@@ -90,24 +93,26 @@ public class JobData {
      * @param value The search term to look for
      * @return      List of all jobs with at least one field containing the value
      */
+    public static ArrayList<HashMap<String, String>> findByValue(String value) {
 
-       public static ArrayList<HashMap<String, String>> findByValue(String value) {
-           // load data if not already loaded
+        value = value.toLowerCase();
 
+        // load data, if not already loaded
         loadData();
 
         ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
 
-        for (HashMap<String, String> column : allJobs) {
-            for (String variable : column.values()) {
-                if (variable.toLowerCase().contains(value.toLowerCase()) && !jobs.contains(column)) {
-                    jobs.add(column);
+        for (HashMap<String, String> job : allJobs) {
+            for(String key : job.keySet()) {
+                if(job.get(key).toLowerCase().contains(value)) {
+                    jobs.add(job);
+                    break;
                 }
             }
         }
         return jobs;
     }
-    
+
     /**
      * Read in data from a CSV file and store it in a list
      */
