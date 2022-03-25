@@ -60,24 +60,17 @@ public class TechJobs {
                 // What is their search term?
                 System.out.println("\nSearch term:");
                 String searchTerm = in.nextLine();
-                searchTerm.toLowerCase();
 
                 if (searchField.equals("all")) {
-                    if (searchTerm.equals("all")){
-                        printJobs(JobData.findAll());
-                    }else{
-                        printJobs(JobData.findByValue(searchTerm));
-                    }
-                } else if (JobData.findAll(searchField).contains(searchTerm.toLowerCase())){
-                    printJobs(JobData.findByColumnAndValue(searchField, searchTerm));
+                    printJobs(JobData.findByValue(searchTerm));
                 } else {
-                    System.out.println("\nNo results found.");
+                    printJobs(JobData.findByColumnAndValue(searchField, searchTerm));
                 }
             }
         }
     }
 
-    // ﻿Returns the key of the selected item from the choices Dictionary
+    // Returns the key of the selected item from the choices Dictionary
     private static String getUserSelection(String menuHeader, HashMap<String, String> choices) {
 
         int choiceIdx = -1;
@@ -124,19 +117,21 @@ public class TechJobs {
         return choiceKeys[choiceIdx];
     }
 
-      // Print a list of jobs
+    // Print a list of jobs
     private static void printJobs(ArrayList<HashMap<String, String>> someJobs) {
-        if (someJobs.size() > 0) {
-            for (HashMap<String, String> eachJob : someJobs) {
-                System.out.println("*****");
-                for(String key : eachJob.keySet()) {
-                    System.out.println(key + ": " + eachJob.get(key));
+
+        if (someJobs.isEmpty()){
+            System.out.print("No Results");
+        } else {
+            for (HashMap<String, String> i:someJobs){
+                System.out.println("\n*****");
+                for (Map.Entry<String, String> j : i.entrySet()){
+                    System.out.println(j.getKey() + ": " + j.getValue());
                 }
                 System.out.println("*****");
             }
-        } else {
-            System.out.println("No jobs were found.");
-
         }
+
+        //System.out.println("printJobs is not implemented yet");
     }
 }
